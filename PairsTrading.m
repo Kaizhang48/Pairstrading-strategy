@@ -1,7 +1,7 @@
-% Ïà±ÈÓÚPAIRnewnew,¸ü¸ÄµÄµØ·½ÔÚÓÚ,ÂòÈÚÆ±Ê±,ÓÉÁ¿ÏàµÈ¸Ä³ÉËùÂò¼ÛÖµ×ÜÁ¿ÏàµÈ,ÇÒlembda²»ÊÇÓÃµÄ¶¯Ì¬lambda,¶øÊÇ¾²Ì¬lambda
-HS300_advanced=(xlsread('ÈÚ×ÊÈÚÈ¯±êµÄÖĞÖ¤800ÈÕÏßÊı¾İ.xlsx','ÀúÊ·ĞĞÇé'))';
-[CLOSE,txt]=xlsread('ÈÚ×ÊÈÚÈ¯±êµÄÊÕÅÌ.xlsx','sheet1');%³É·Ö¹ÉÊÕÅÌ¼Û
-[~,STIU]=xlsread('ÈÚ×Ê±êµÄ¹ÉÆ±½»Ò××´Ì¬.xlsx','ÀúÊ·ĞĞÇé');
+
+HS300_advanced=(xlsread('èèµ„èåˆ¸æ ‡çš„ä¸­è¯800æ—¥çº¿æ•°æ®.xlsx','å†å²è¡Œæƒ…'))';
+[CLOSE,txt]=xlsread('èèµ„èåˆ¸æ ‡çš„æ”¶ç›˜.xlsx','sheet1');%æˆåˆ†è‚¡æ”¶ç›˜ä»·
+[~,STIU]=xlsread('èèµ„æ ‡çš„è‚¡ç¥¨äº¤æ˜“çŠ¶æ€.xlsx','å†å²è¡Œæƒ…');
 STIU=STIU';
 STIU=STIU(2:end,5:end);
 [~,ll]=find(cellfun('isempty',STIU)==1,1,'first');
@@ -10,31 +10,31 @@ STIU=STIU(:,1:ll-1);
 STIUATION=ones(aa,bb).*9999;
 for i=1:aa
     for j=1:bb
-        if strcmp(STIU{i,j},'Õı³£½»Ò×')||strcmp(STIU{i,j},'¸´ÅÆ')||strcmp(STIU{i,j},'ÅÌÖĞÍ£ÅÆ')||strcmp(STIU{i,j},'Í£ÅÆÒ»Ğ¡Ê±')||strcmp(STIU{i,j},'Í£ÅÆ°ëÌì')||strcmp(STIU{i,j},'Í£ÅÆ°ëĞ¡Ê±')
+        if strcmp(STIU{i,j},'æ­£å¸¸äº¤æ˜“')||strcmp(STIU{i,j},'å¤ç‰Œ')||strcmp(STIU{i,j},'ç›˜ä¸­åœç‰Œ')||strcmp(STIU{i,j},'åœç‰Œä¸€å°æ—¶')||strcmp(STIU{i,j},'åœç‰ŒåŠå¤©')||strcmp(STIU{i,j},'åœç‰ŒåŠå°æ—¶')
             STIUATION(i,j)=1;
-        elseif strcmp(STIU{i,j},'ÔİÍ£ÉÏÊĞ')||strcmp(STIU{i,j},'Á¬ĞøÍ£ÅÆ')||strcmp(STIU{i,j},'Í£ÅÆÒ»Ìì')||strcmp(STIU{i,j},'Î´ÉÏÊĞ')
+        elseif strcmp(STIU{i,j},'æš‚åœä¸Šå¸‚')||strcmp(STIU{i,j},'è¿ç»­åœç‰Œ')||strcmp(STIU{i,j},'åœç‰Œä¸€å¤©')||strcmp(STIU{i,j},'æœªä¸Šå¸‚')
             STIUATION(i,j)=0;
         end
     end
 end
 xlswrite('C:\csvdata\Pair_STIUATION.xlsx', STIUATION ,'sheet1')
-OPEN=(xlsread('ÈÚ×ÊÈÚÈ¯±êµÄ¿ªÅÌ.xlsx','sheet1'))';
+OPEN=(xlsread('èèµ„èåˆ¸æ ‡çš„å¼€ç›˜.xlsx','sheet1'))';
 CLOSE(isnan(CLOSE))=0;
 CLOSE=CLOSE';
-%±ê×¼»¯¼Û¸ñ
+%æ ‡å‡†åŒ–ä»·æ ¼
 % r(i)=log(p(i))-log(p(i-1))
-% SP(t)±íÊ¾µÚtÌìµÄ±ê×¼¼Û¸ñ,SP(t)=sum(1+r(i):i=1~t)
+% SP(t)è¡¨ç¤ºç¬¬tå¤©çš„æ ‡å‡†ä»·æ ¼,SP(t)=sum(1+r(i):i=1~t)
 LOGreturn=LOGreturn_maker(CLOSE);
 LOGreturn(isnan(LOGreturn))=0;
 SP=cumprod((1+LOGreturn),2);
 secName=txt(3,2:end)';
-tradeDate=txt(5:end,1)';%¹ÉÆ±ÈÕÆÚÁĞ±í,ºáÏòÁ¿
+tradeDate=txt(5:end,1)';%è‚¡ç¥¨æ—¥æœŸåˆ—è¡¨,æ¨ªå‘é‡
 tradeDate=tradeDate(1:find(cellfun('isempty',tradeDate)==1,1,'first')-1);
 tradeDate=tradeDate(1,1:end);
 OPEN(isnan(OPEN))=0;
 % load('PAIRnewnew.mat')
-%----------------------------------------------------------------------------µ¼ÈëÊı¾İ
-%----------------------------------------------------------------------------¹¹½¨ÕË»§ĞÅÏ¢
+%----------------------------------------------------------------------------å¯¼å…¥æ•°æ®
+%----------------------------------------------------------------------------æ„å»ºè´¦æˆ·ä¿¡æ¯
 Observe=220;
 TOP=500;
 storageRoom=5;
@@ -45,10 +45,10 @@ pre_pairNumber=80;
 pairNumber=40;
 confidence_coeff=3;
 changeMonth=3;
-Loanthreshhold=0.2;%ÈÚÈ¯Æ½²ÖÖ¹Ëğµã
+Loanthreshhold=0.2;%èåˆ¸å¹³ä»“æ­¢æŸç‚¹
 %Observe=480
 %storagerRoom=15
-%---------------------------------------------------------------------------ÕË»§ĞÅÏ¢¹¹½¨Íê±Ï
+%---------------------------------------------------------------------------è´¦æˆ·ä¿¡æ¯æ„å»ºå®Œæ¯•
 OPEN=OPEN(1:TOP,:);
 secName=secName(1:TOP,:);
 CLOSE=CLOSE(1:TOP,:);
@@ -60,39 +60,39 @@ cash=zeros(1,row);
 cash(1,1:Observe)=200000;
 universe=cell(pairNumber,length(tradeDate));
 
-benchmarkCLOSE=HS300_advanced(4,:);%¶ÔÓ¦Ö¸ÊıÊÕÅÌ¼Û
-benchmarkOPEN=HS300_advanced(1,:);%¶ÔÓ¦Ö¸Êı¿ªÅÌ¼Û
-storage=zeros(storageRoom,row);%ĞĞÊÇ¹ÉÆ±,ÁĞÊÇÊ±¼ä,ÖĞ¼äµÄÊıÖµÊÇ¹ÉÆ±µÄÎ»Êı
-storage_Loan=zeros(storageRoom,row);%ÈÚÈ¯µÄ²ÖÎ» ÂòµÄ¹ÉÆ±ÔÚstorageÀï,ÈÚµÄÈ¯ÔÚstorage_LoanÀï
+benchmarkCLOSE=HS300_advanced(4,:);%å¯¹åº”æŒ‡æ•°æ”¶ç›˜ä»·
+benchmarkOPEN=HS300_advanced(1,:);%å¯¹åº”æŒ‡æ•°å¼€ç›˜ä»·
+storage=zeros(storageRoom,row);%è¡Œæ˜¯è‚¡ç¥¨,åˆ—æ˜¯æ—¶é—´,ä¸­é—´çš„æ•°å€¼æ˜¯è‚¡ç¥¨çš„ä½æ•°
+storage_Loan=zeros(storageRoom,row);%èåˆ¸çš„ä»“ä½ ä¹°çš„è‚¡ç¥¨åœ¨storageé‡Œ,èçš„åˆ¸åœ¨storage_Loané‡Œ
 each_lamda=zeros(s,row);
 buy_record=cell(storageRoom,row);
 sale_record=cell(storageRoom,row);
 buyLoan_record=cell(storageRoom,row);
 saleLoan_record=cell(storageRoom,row);
-%----------------------------ÈÚÈ¯Çé¿ö
+%----------------------------èåˆ¸æƒ…å†µ
 buyLoan=zeros(s,row);
 saleLoan=zeros(s,row);
-%----------------------------ÈÚÈ¯Çé¿ö
+%----------------------------èåˆ¸æƒ…å†µ
 Condition=zeros(s,row);
 storage_name=cell(size(storage));
 storage_Loan_name=cell(size(storage));
 buy=zeros(s,row);
 secLoanValue=zeros(s,row);
 sale=zeros(s,row);
-volume=zeros(s,row);%s,rowÊÇCLOSEµÄĞĞºÍÁĞ
+volume=zeros(s,row);%s,rowæ˜¯CLOSEçš„è¡Œå’Œåˆ—
 Loan_volume=zeros(s,row);
 perreturn=zeros(s,row);
 perreturn_rate=zeros(s,row);
 dayreturn=zeros(1,row);
-stamptax=zeros(s,row);%Ó¡»¨Ë°,ÂôµÄÊ±ºò²ÅÊÕÈ¡
-buy_commision=zeros(s,row);%Ó¶½ğ,ÂòÂô¶¼ÊÕÈ¡,Ó¶½ğÓĞ×îĞ¡Öµlowest_commision
+stamptax=zeros(s,row);%å°èŠ±ç¨,å–çš„æ—¶å€™æ‰æ”¶å–
+buy_commision=zeros(s,row);%ä½£é‡‘,ä¹°å–éƒ½æ”¶å–,ä½£é‡‘æœ‰æœ€å°å€¼lowest_commision
 sale_commision=zeros(s,row);
 
 benchmark_rt=(benchmarkCLOSE(1,Observe+1:end)-benchmarkOPEN(1,Observe+1))./benchmarkOPEN(1,Observe+1);
-for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
+for Date=Observe:(length(tradeDate)-1)%å¾ªç¯æ¯å¤©
     xc=Date
     histwindow=120;
-%-------------------------------------------¸üĞÂÃ¿ÈÕÕË»§ĞÅÏ¢
+%-------------------------------------------æ›´æ–°æ¯æ—¥è´¦æˆ·ä¿¡æ¯
     storage_name(:,Date+1)=storage_name(:,Date);
     storage_Loan_name(:,Date+1)=storage_Loan_name(:,Date);
     storage(:,Date+1)=storage(:,Date);
@@ -103,34 +103,34 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
     secLoanValue(:,Date+1)=secLoanValue(:,Date);
 
     universe(:,Date+1)=universe(:,Date);
-%--------------------------------------------¸üĞÂÍê±Ï
+%--------------------------------------------æ›´æ–°å®Œæ¯•
 
-%----------------------------------------------¹¹½¨¹ÉÆ±³Ø
-    if mod(Date-Observe,20.*changeMonth)==0%ÔÂÎªµ¥Î»¸üĞÂ¹ÉÆ±³Ø
+%----------------------------------------------æ„å»ºè‚¡ç¥¨æ± 
+    if mod(Date-Observe,20.*changeMonth)==0%æœˆä¸ºå•ä½æ›´æ–°è‚¡ç¥¨æ± 
         today=tradeDate(1,Date);
 %         distance=ones(length(secName),length(secName)).*10000000;
 %         distance_origin=ones(length(secName),length(secName)).*10000000;
         distance=ones(length(secName),length(secName)).*inf;
         distance_origin=ones(length(secName),length(secName)).*inf;
         universe(:,Date+1)=cell(pairNumber,1);
- %---------------------------------------------Ñ¡È¡¾àÀë×îĞ¡µÄ
+ %---------------------------------------------é€‰å–è·ç¦»æœ€å°çš„
         for i=1:length(secName)-1
-            for j=i+1:length(secName)%¼ìË÷Ã¿Ò»¶Ô¹ÉÆ±µÄ¾àÀë
+            for j=i+1:length(secName)%æ£€ç´¢æ¯ä¸€å¯¹è‚¡ç¥¨çš„è·ç¦»
                 temp1=SP(i,Date-histwindow:Date)-SP(j,Date-histwindow:Date);
                 temp2=power(temp1,2);
-                temp3=sum(temp2);%Ëã³ö¹æ¶¨Ê±¼ä´°¿ÚÄÚ,Á½¸ö±ê×¼»¯ÒÔºóµÄ¹ÉÆ±¼Û¸ñÊ±¼äĞòÁĞµÄ×îĞ¡¶ş³Ë·¨ÖĞµÄ¾àÀë
+                temp3=sum(temp2);%ç®—å‡ºè§„å®šæ—¶é—´çª—å£å†…,ä¸¤ä¸ªæ ‡å‡†åŒ–ä»¥åçš„è‚¡ç¥¨ä»·æ ¼æ—¶é—´åºåˆ—çš„æœ€å°äºŒä¹˜æ³•ä¸­çš„è·ç¦»
                 distance(i,j)=temp3;
                 distance_origin(i,j)=temp3;
             end
-            if prod(SP(i,1:Date))==1%Èç¹ûÃ»ÉÏÊĞ
+            if prod(SP(i,1:Date))==1%å¦‚æœæ²¡ä¸Šå¸‚
                 distance(i,:)=inf;
                 distance(:,i)=inf;
                 distance_origin(i,:)=inf;
                 distance_origin(:,i)=inf;
-                %Èô¹ÉÆ±Ã»ÓĞÉÏÊĞ,Ôò²»ÔÊĞíÓëÖ®Åä¶Ô
+                %è‹¥è‚¡ç¥¨æ²¡æœ‰ä¸Šå¸‚,åˆ™ä¸å…è®¸ä¸ä¹‹é…å¯¹
             end
         end%universe=cell(pairNumber,length(tradeDate));
-        preuniverse=zeros(pre_pairNumber,2);%³õ²½É¸Ñ¡³ö¾àÀë×îĞ¡µÄ
+        preuniverse=zeros(pre_pairNumber,2);%åˆæ­¥ç­›é€‰å‡ºè·ç¦»æœ€å°çš„
         for i=1:pre_pairNumber
             [a,b]=find(distance==min(min(distance)),1,'last');
             preuniverse(i,:)=[a,b];
@@ -139,7 +139,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
             distance(:,b)=inf;
             distance(b,:)=inf;
         end
-        adfuniverse=[];%ÔÚÕÒ³öµÄ¾àÀëĞ¡µÄÅä¶ÔÖĞÕÒ³öÓĞÆ½ÎÈÊ±¼äĞòÁĞµÄÅä¶Ô(Í¨¹ıadftestµÄÅä¶Ô)
+        adfuniverse=[];%åœ¨æ‰¾å‡ºçš„è·ç¦»å°çš„é…å¯¹ä¸­æ‰¾å‡ºæœ‰å¹³ç¨³æ—¶é—´åºåˆ—çš„é…å¯¹(é€šè¿‡adftestçš„é…å¯¹)
         for j=1:pre_pairNumber
             A=SP(preuniverse(j,1),Date-histwindow:Date);
             B=SP(preuniverse(j,2),Date-histwindow:Date);
@@ -153,7 +153,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                     A=diff(A);
                     B=diff(B);
                     if sum(A)==0||sum(5)==0
-                        %ÆäÖĞÓĞ¹ÉÆ±³¤Ê±¼äÁ¬ĞøÍ£ÅÆ
+                        %å…¶ä¸­æœ‰è‚¡ç¥¨é•¿æ—¶é—´è¿ç»­åœç‰Œ
                         break;
                     end
                 elseif (~(h1==1&&h2==1))&&(h1==1||h2==1)
@@ -162,11 +162,11 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
             end            
         end
 
-        for i=1:length(adfuniverse)%¶ÔÌôÑ¡³öµÄ¾ßÓĞÆ½ÎÈÊ±¼äĞòÁĞµÄÅä¶Ô×öĞ­Õû¼ìÑé,ÕÒ³ö¾ßÓĞĞ­ÕûĞ§Ó¦µÄÅä¶Ô
+        for i=1:length(adfuniverse)%å¯¹æŒ‘é€‰å‡ºçš„å…·æœ‰å¹³ç¨³æ—¶é—´åºåˆ—çš„é…å¯¹åšåæ•´æ£€éªŒ,æ‰¾å‡ºå…·æœ‰åæ•´æ•ˆåº”çš„é…å¯¹
             y=[(SP(adfuniverse(i,1),Date-histwindow:Date))',(SP(adfuniverse(i,2),Date-histwindow:Date))'];
             h=egcitest(y);
-            nullloc=cellfun('isempty',universe(:,Date+1)); %universeÊÇcell,cellfunÊÇcellfunctionµÄÒâË¼
-            null_first=find(nullloc==1,1,'first');%=1Îª¿Õ
+            nullloc=cellfun('isempty',universe(:,Date+1)); %universeæ˜¯cell,cellfunæ˜¯cellfunctionçš„æ„æ€
+            null_first=find(nullloc==1,1,'first');%=1ä¸ºç©º
             if length(find(nullloc==1))>0
                 if h==1
                     universe{null_first,Date+1}=adfuniverse(i,:);
@@ -176,11 +176,11 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
             end
         end
     end
-%------------------------------------------------¹¹½¨¹ÉÆ±³ØÍê±Ï
-%-----------------------------------------------Âô³öĞÅºÅ   
+%------------------------------------------------æ„å»ºè‚¡ç¥¨æ± å®Œæ¯•
+%-----------------------------------------------å–å‡ºä¿¡å·   
     for p=1:storageRoom
         if  storage(p,Date+1)~=0&&storage_Loan(p,Date+1)~=0
-            %Ã¿¶ÔµÚÒ»¸öÊÇÂò,µÚ¶ş¸öÊÇÈÚ
+            %æ¯å¯¹ç¬¬ä¸€ä¸ªæ˜¯ä¹°,ç¬¬äºŒä¸ªæ˜¯è
             mai=storage(p,Date+1);
             rong=storage_Loan(p,Date+1);
             
@@ -189,13 +189,13 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
             STOPLoanprice=round(CLOSE(rong,Date).*1.1.*100)./100;
             STOPLoanDprice=round(CLOSE(rong,Date).*0.9.*100)./100;
             if OPEN(rong,Date+1)<STOPLoanprice&&OPEN(rong,Date+1)>STOPLoanDprice&& OPEN(mai,Date+1)<STOPprice&&OPEN(mai,Date+1)>STOPDprice
-                if STIUATION(mai,Date+1)==1&&STIUATION(rong,Date+1)==1%ÎŞÍ£ÅÆ
-                    buydate=find(buy(mai,:)~=0, 1, 'last' );%×î½üÒ»´ÎÂòµÄÈÕÆÚ
-                    if Condition(mai,buydate)==1%ÂòµÄÊ±ºò¸ù¾İµÄÊÇlembda_positive,×ö¶àĞ¡µÄ,×ö¿Õ´óµÄ 
+                if STIUATION(mai,Date+1)==1&&STIUATION(rong,Date+1)==1%æ— åœç‰Œ
+                    buydate=find(buy(mai,:)~=0, 1, 'last' );%æœ€è¿‘ä¸€æ¬¡ä¹°çš„æ—¥æœŸ
+                    if Condition(mai,buydate)==1%ä¹°çš„æ—¶å€™æ ¹æ®çš„æ˜¯lembda_positive,åšå¤šå°çš„,åšç©ºå¤§çš„ 
 %                        Diff=CLOSE(rong,Date-histwindow:Date)-CLOSE(mai,Date-histwindow:Date);
                         lemda=each_lamda(mai,buydate);%mean(Diff)+confidence_coeff.*std(Diff);                            
                         if CLOSE(rong,Date)-CLOSE(mai,Date)<lemda||(-(Loan_volume(rong,buydate).*(OPEN(rong,buydate)-OPEN(rong,Date+1)))./(Loan_volume(rong,buydate).*OPEN(rong,buydate)))>=Loanthreshhold
-                    %Èô³öÏÖÂôµã,Âô³öĞ¡µÄ
+                    %è‹¥å‡ºç°å–ç‚¹,å–å‡ºå°çš„
                             sale_commision(mai,Date+1)=(volume(mai,buydate).*OPEN(mai,Date+1)).*commision_rate;
                             if sale_commision(mai,Date+1)<lowest_commision                           
                                 sale_commision(mai,Date+1)=lowest_commision;
@@ -205,7 +205,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                             sale(mai,Date+1)=OPEN(mai,Date+1);
                             sale_record(p,Date+1)=secName(mai,1);
 
-                      %Âô³öÈÚÀ´µÄ´óµÄ
+                      %å–å‡ºèæ¥çš„å¤§çš„
                             saleLoan(rong,Date+1)=OPEN(rong,Date+1);
                             sale_commision(rong,Date+1)=(Loan_volume(rong,buydate).*OPEN(rong,Date+1)).*commision_rate;
                             if sale_commision(rong,Date+1)<lowest_commision                           
@@ -217,7 +217,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                             saleLoan_record(p,Date+1)=secName(rong,1);                       
                             perreturn(mai,Date+1)=(OPEN(mai,Date+1)-OPEN(mai,buydate)).*volume(mai,buydate)-stamptax(mai,Date+1)-sale_commision(mai,Date+1)-buy_commision(mai,buydate)+temp;
                             perreturn_rate(mai,Date+1)=perreturn(mai,Date+1)./(volume(mai,buydate).*OPEN(mai,buydate)+buy_commision(mai,buydate));
-                            %¸üĞÂ¾ØÕóĞÅÏ¢
+                            %æ›´æ–°çŸ©é˜µä¿¡æ¯
                             volume(mai,Date+1)=0;
                             volume(rong,Date+1)=0;
                             storage(p,Date+1)=0;
@@ -225,14 +225,14 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                             storage_Loan(p,Date+1)=0;
                             storage_Loan_name{p,Date+1}=[];
                         end
-                    elseif Condition(mai,buydate)==2%ÂòµÄÊ±ºòÊÇ¸ù¾İlemda_negative
-                        %×ö¶à´óµÄ,×ö¿ÕĞ¡µÄ
-                        %Ã¿¶ÔµÚÒ»¸öÎªÂò,µÚ¶ş¸öÎªÈÚ,Ò²¾ÍÊÇËµÔÚcondition2ÖĞ,µÚÒ»¸öÊÇ´ó,µÚ¶ş¸öÊÇĞ¡
+                    elseif Condition(mai,buydate)==2%ä¹°çš„æ—¶å€™æ˜¯æ ¹æ®lemda_negative
+                        %åšå¤šå¤§çš„,åšç©ºå°çš„
+                        %æ¯å¯¹ç¬¬ä¸€ä¸ªä¸ºä¹°,ç¬¬äºŒä¸ªä¸ºè,ä¹Ÿå°±æ˜¯è¯´åœ¨condition2ä¸­,ç¬¬ä¸€ä¸ªæ˜¯å¤§,ç¬¬äºŒä¸ªæ˜¯å°
 %                         Diff=CLOSE(mai,Date-histwindow:Date)-CLOSE(rong,Date-histwindow:Date);
 %                         lemda=mean(Diff);
                         lemda=each_lamda(mai,buydate);%mean(Diff)-confidence_coeff.*std(Diff);                            
                         if CLOSE(mai,Date)-CLOSE(rong,Date)>lemda||(-(Loan_volume(rong,buydate).*(OPEN(rong,buydate)-OPEN(rong,Date+1)))./(Loan_volume(rong,buydate).*OPEN(rong,buydate)))>=Loanthreshhold
-                    %Èô³öÏÖÂôµã,Âô³ö´óµÄ
+                    %è‹¥å‡ºç°å–ç‚¹,å–å‡ºå¤§çš„
                             sale_commision(mai,Date+1)=(volume(mai,buydate).*OPEN(mai,Date+1)).*commision_rate;
                             if sale_commision(mai,Date+1)<lowest_commision                           
                                 sale_commision(mai,Date+1)=lowest_commision;
@@ -242,7 +242,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                             sale(mai,Date+1)=OPEN(mai,Date+1);
                             sale_record(p,Date+1)=secName(mai,1);
 
-                      %Âô³öÈÚÀ´µÄĞ¡µÄ
+                      %å–å‡ºèæ¥çš„å°çš„
                             saleLoan(rong,Date+1)=OPEN(rong,Date+1);
                             sale_commision(rong,Date+1)=(volume(rong,buydate).*OPEN(rong,Date+1)).*commision_rate;
                             if sale_commision(rong,Date+1)<lowest_commision                           
@@ -255,7 +255,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                             saleLoan_record(p,Date+1)=secName(rong,1);
                             perreturn(mai,Date+1)=(OPEN(mai,Date+1)-OPEN(mai,buydate)).*volume(mai,buydate)-stamptax(mai,Date+1)-sale_commision(mai,Date+1)-buy_commision(mai,buydate)+temp;
                             perreturn_rate(mai,Date+1)=perreturn(mai,Date+1)./(volume(mai,buydate).*OPEN(mai,buydate)+buy_commision(mai,buydate));
-                            %¸üĞÂ¾ØÕóĞÅÏ¢
+                            %æ›´æ–°çŸ©é˜µä¿¡æ¯
                             volume(mai,Date+1)=0;
                             volume(rong,Date+1)=0;
                             storage(p,Date+1)=0;
@@ -270,23 +270,23 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
 
         end
     end
-%-----------------------------------------------------------------Âô³öĞÅºÅ       
-    for pair=1:pairNumber%±éÀúuniverseÖĞËùÓĞµÄÅä¶Ô  
+%-----------------------------------------------------------------å–å‡ºä¿¡å·       
+    for pair=1:pairNumber%éå†universeä¸­æ‰€æœ‰çš„é…å¯¹  
         nullloc=cellfun('isempty',universe(pair,Date+1));
-        if nullloc==0%È·¶¨Ôª°û²»Îª¿Õ
-%--------------------------------------------------------------------------------------------ÂòÈëĞÅºÅ
+        if nullloc==0%ç¡®å®šå…ƒèƒä¸ä¸ºç©º
+%--------------------------------------------------------------------------------------------ä¹°å…¥ä¿¡å·
             first=universe{pair,Date+1}(1,1);
             second=universe{pair,Date+1}(1,2);
 
-            if length(find(storage(:,Date+1)~=first))==storageRoom&&length(find(storage_Loan(:,Date+1)~=first))==storageRoom %ÂòµÄ¹ÉÆ±Ã»ÓĞ³Ö²Ö
-                if length(find(storage_Loan(:,Date+1)~=second))==storageRoom&&length(find(storage(:,Date+1)~=second))==storageRoom %ÈÚµÄ¹ÉÆ±Ã»ÓĞ³Ö²Ö
-                    if length(find(storage(:,Date+1)==0))>0%Èç¹û²ÕÄÚ»¹ÓĞ¹ÉÆ±         
+            if length(find(storage(:,Date+1)~=first))==storageRoom&&length(find(storage_Loan(:,Date+1)~=first))==storageRoom %ä¹°çš„è‚¡ç¥¨æ²¡æœ‰æŒä»“
+                if length(find(storage_Loan(:,Date+1)~=second))==storageRoom&&length(find(storage(:,Date+1)~=second))==storageRoom %èçš„è‚¡ç¥¨æ²¡æœ‰æŒä»“
+                    if length(find(storage(:,Date+1)==0))>0%å¦‚æœèˆ±å†…è¿˜æœ‰è‚¡ç¥¨         
                             STOPprice=round(CLOSE(first,Date).*1.1.*100)./100;
                             STOPDprice=round(CLOSE(first,Date).*0.9.*100)./100;
                             STOPLoanprice=round(CLOSE(second,Date).*1.1.*100)./100;
                             STOPLoanDprice=round(CLOSE(second,Date).*0.9.*100)./100;
-                            if OPEN(first,Date+1)<STOPprice&&OPEN(first,Date+1)>STOPDprice&&OPEN(second,Date+1)<STOPLoanprice&&OPEN(second,Date+1)>STOPLoanDprice%ÅĞ¶ÏÊÇ·ñÕÇÍ£
-                                if STIUATION(first,Date+1)==1&&STIUATION(second,Date+1)==1%ÅĞ¶Ï¸Ã¶Ô¹ÉÆ±ÊÇ·ñ¿ÉÒÔ½øĞĞ½»Ò×,ÈôÆäÖĞÓĞÈÎÒâÒ»¸ö²»ÄÜ½»Ò×,ÔòÈ«²¿²»ÄÜ½»Ò×
+                            if OPEN(first,Date+1)<STOPprice&&OPEN(first,Date+1)>STOPDprice&&OPEN(second,Date+1)<STOPLoanprice&&OPEN(second,Date+1)>STOPLoanDprice%åˆ¤æ–­æ˜¯å¦æ¶¨åœ
+                                if STIUATION(first,Date+1)==1&&STIUATION(second,Date+1)==1%åˆ¤æ–­è¯¥å¯¹è‚¡ç¥¨æ˜¯å¦å¯ä»¥è¿›è¡Œäº¤æ˜“,è‹¥å…¶ä¸­æœ‰ä»»æ„ä¸€ä¸ªä¸èƒ½äº¤æ˜“,åˆ™å…¨éƒ¨ä¸èƒ½äº¤æ˜“
                                     
                                    CLOSEseries=[mean(CLOSE(first,1:Date)),mean(CLOSE(second,1:Date))];
                                    pos_bigger=find(CLOSEseries==max(CLOSEseries));
@@ -299,13 +299,13 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                                    lemda_positive=mean(Diff)+confidence_coeff.*std(Diff);
                                    lemda_negative=mean(Diff)-confidence_coeff.*std(Diff);
                                    if CLOSE(bigger,Date)-CLOSE(smaller,Date)>lemda_positive
-                                       %Âô¿Õ´óµÄ,×ö¶àĞ¡µÄ
+                                       %å–ç©ºå¤§çš„,åšå¤šå°çš„
                                        each_lamda(smaller,Date+1)=mean(Diff);%+std(Diff);
-            %-----------------------------------------------------------------------------------------------×ö¶àĞ¡µÄ
+            %-----------------------------------------------------------------------------------------------åšå¤šå°çš„
                                         volume(smaller,Date+1)=cash(1,Date+1)./(length(find(storage(:,Date+1)==0)).*OPEN(smaller,Date+1)); 
-            %-----------------------------------------------------------------------------------------------±ØĞëÕûÊÖÂò 
+            %-----------------------------------------------------------------------------------------------å¿…é¡»æ•´æ‰‹ä¹° 
                                         volume(smaller,Date+1)=HSLsec_Advanced_Limit_test_round(volume(smaller,Date+1),100);
-            %-----------------------------------------------------------------------------------------------ÂòµÄÊ±ºò±ØĞë¿¼ÂÇ×Ê½ğÓà¶î
+            %-----------------------------------------------------------------------------------------------ä¹°çš„æ—¶å€™å¿…é¡»è€ƒè™‘èµ„é‡‘ä½™é¢
                                         [volume(smaller,Date+1),buy_commision(smaller,Date+1)]=HSLsec_Advanced_Limit_account_limit(cash(1,Date+1),volume(smaller,Date+1),OPEN(smaller,Date+1),commision_rate);
             %----------------------------------------------------------------------------------------------------------------------------------------------------------------- 
                                         tradeValue=volume(smaller,Date+1).*OPEN(smaller,Date+1);
@@ -319,7 +319,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                                             Condition(smaller,Date+1)=1;
                                             Condition(bigger,Date+1)=1;
                                         end 
-            %---------------------------------------------------------------------------------×ö¿Õ´óµÄ
+            %---------------------------------------------------------------------------------åšç©ºå¤§çš„
                                         Loan_volume(bigger,Date+1)=tradeValue./OPEN(bigger,Date+1);
                                         Loan_volume(bigger,Date+1)=HSLsec_Advanced_Limit_test_round(Loan_volume(bigger,Date+1),100);
                                         
@@ -333,13 +333,13 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                                             buyLoan_record(b,Date+1)=secName(bigger,1);
                                         end
                                    elseif CLOSE(bigger,Date)-CLOSE(smaller,Date)<lemda_negative
-                                       %×ö¶à´óµÄ,×ö¿ÕĞ¡µÄ
+                                       %åšå¤šå¤§çš„,åšç©ºå°çš„
                                        each_lamda(bigger,Date+1)=mean(Diff);%-std(Diff);
-            %-------------------------------------------------------------------------------------------------------------------------------------------×ö¶à´óµÄ
+            %-------------------------------------------------------------------------------------------------------------------------------------------åšå¤šå¤§çš„
                                         volume(bigger,Date+1)=cash(1,Date+1)./(length(find(storage(:,Date+1)==0)).*OPEN(bigger,Date+1)); 
-            %-----------------------------------------------------------------------------------------------------------------------------------------±ØĞëÕûÊÖÂò 
+            %-----------------------------------------------------------------------------------------------------------------------------------------å¿…é¡»æ•´æ‰‹ä¹° 
                                         volume(bigger,Date+1)=HSLsec_Advanced_Limit_test_round(volume(bigger,Date+1),100);
-            %------------------------------------------------------------------------------------------------------------------------------------------ÂòµÄÊ±ºò±ØĞë¿¼ÂÇ×Ê½ğÓà¶î
+            %------------------------------------------------------------------------------------------------------------------------------------------ä¹°çš„æ—¶å€™å¿…é¡»è€ƒè™‘èµ„é‡‘ä½™é¢
                                         [volume(bigger,Date+1),buy_commision(bigger,Date+1)]=HSLsec_Advanced_Limit_account_limit(cash(1,Date+1),volume(bigger,Date+1),OPEN(bigger,Date+1),commision_rate);
             %-----------------------------------------------------------------------------------------------------------------------------------------------------------------
                                         tradeValue=volume(bigger,Date+1).*OPEN(bigger,Date+1);
@@ -353,7 +353,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
                                             Condition(smaller,Date+1)=2;
                                             Condition(bigger,Date+1)=2;
                                         end 
-            %--------------------------------------------------------------------------------------------------------------------------------×ö¿ÕĞ¡µÄ
+            %--------------------------------------------------------------------------------------------------------------------------------åšç©ºå°çš„
                                         Loan_volume(smaller,Date+1)=tradeValue./OPEN(smaller,Date+1);
                                         Loan_volume(smaller,Date+1)=HSLsec_Advanced_Limit_test_round(Loan_volume(smaller,Date+1),100);
                                         if Loan_volume(smaller,Date+1)~=0
@@ -378,9 +378,9 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
             end
         end
     end
-    %--------------------------------------------Ã¿ÈÕÊÕÒæ
+    %--------------------------------------------æ¯æ—¥æ”¶ç›Š
 
-    %--------------------------------------------¼ÆËãÃ¿Ò»ÈÕ×Ê²ú¼Û¸ñ 
+    %--------------------------------------------è®¡ç®—æ¯ä¸€æ—¥èµ„äº§ä»·æ ¼ 
 
         for i=1:length(storage(:,Date+1))
             if storage(i,Date+1)~=0
@@ -397,7 +397,7 @@ for Date=Observe:(length(tradeDate)-1)%Ñ­»·Ã¿Ìì
         end
   
     
-%--------------------------------------------¼ÆËãÍê±Ï
+%--------------------------------------------è®¡ç®—å®Œæ¯•
 end
 
 accountValue=cash+capital+Loan_capital;
@@ -409,7 +409,7 @@ for i=1:length(a)
 end
 A_result_perDay_rt=diff(accountValue(1,Observe+1:end))./accountValue(1,Observe+1:end-1);
 A_result_Annual_sharp=(mean(A_result_perDay_rt)./std(A_result_perDay_rt)).*16;
-%---------------------------------------------±í¸ñ¼Ó¹¤
+%---------------------------------------------è¡¨æ ¼åŠ å·¥
 win=length(find(pertrade>0))./length(pertrade);
 maxday=find(account_rt==max(account_rt),1);
 [bloc,floc,maxDrawDown]=maxdrawdown_maker(accountValue(Observe:end));%(max(accountValue)-min(accountValue(maxday:end)))./max(accountValue);
@@ -503,9 +503,9 @@ A_result_STIUATION(1,2:k+1)=tradeDate;
 A_result_STIUATION(2:j+1,1)=secName;
 
 
-%----------------------------------------------±í¸ñ¼Ó¹¤½áÊø
+%----------------------------------------------è¡¨æ ¼åŠ å·¥ç»“æŸ
 
-%----------------------------------------------¿ÉÊÓ»¯²¿·Ö¹¹½¨
+%----------------------------------------------å¯è§†åŒ–éƒ¨åˆ†æ„å»º
 figure(1)
 subplot(2,1,1)
 hold on 
@@ -533,4 +533,4 @@ text(xout(end-10),hist_high(4),sprintf('Variance of The Rate of Return%d',std_tr
 text(xout(end-10),hist_high(3),sprintf('The Rate of Win%s',strcat(num2str(win.*100),'%') ))
 text(xout(end-10),hist_high(2),sprintf('Max Drawdown%s',strcat(num2str(maxDrawDown.*100),'%')))
 text(xout(end-10),hist_high(1),sprintf('Sharp Ratio%s',A_result_Annual_sharp))
-%----------------------------------------------¿ÉÊÓ»¯²¿·Ö½áÊø
+%----------------------------------------------å¯è§†åŒ–éƒ¨åˆ†ç»“æŸ
