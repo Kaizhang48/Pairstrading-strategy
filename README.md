@@ -4,3 +4,4 @@ Utilize Pairstrading strategy on Chinese stockmarket using Matlab, but besides f
 Run this backtesting framwork, it will finally gives you two graphs. One of them is about the rate of return of both your strategy and benchmark. The other one is about the rate of return of your every transacttion in your backtest period.
 ![imag](https://github.com/Kaizhang48/Pairstrading-strategy/raw/master/graphs.png?raw=true)
 By looking at out put item, you can also get the history of trading.
+![imag](https://github.com/Kaizhang48/Pairstrading-strategy/raw/master/example%20of%20trading%20history.png?raw=true)
