@@ -141,8 +141,6 @@ for Date=Observe:(length(tradeDate)-1)%循环每天
         end
         adfuniverse=[];%在找出的距离小的配对中找出有平稳时间序列的配对(通过adftest的配对)
         for j=1:pre_pairNumber
-            A=SP(preuniverse(j,1),Date-histwindow:Date);
-            B=SP(preuniverse(j,2),Date-histwindow:Date);
             for c=1:length(A)                        
                 h1=adftest(A);
                 h2=adftest(B);
